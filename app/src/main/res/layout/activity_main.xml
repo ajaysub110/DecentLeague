@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/login_screen_gradient"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DeCent League"
+        android:fontFamily="@font/ralewaybold"
+        android:textSize="36dp"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/football"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"></ImageView>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Decentralising Footlball Transfers through blockchain"
+        android:fontFamily="@font/ralewaymedium"
+        android:textColor="@android:color/white"
+        android:layout_gravity="center"
+        android:textSize="18dp"
+        android:gravity="center"
+        android:layout_marginTop="40dp"></TextView>
+
+
+    <Button
+        android:id="@+id/getStartedBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle_button"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:text="GET Started"
+        android:fontFamily="@font/ralewaymedium"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"></Button>
+
+
+</LinearLayout>

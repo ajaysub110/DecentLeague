@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_news"
+            android:title="Live News"
+            android:icon="@drawable/ic_menu_camera">
+        </item>
+        <item
+            android:id="@+id/nav_your_team"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Your Team" />
+        <item
+            android:id="@+id/nav_buy_player"
+            android:icon="@drawable/ic_menu_share"
+            android:title="Buy Players" />
+        <item
+            android:id="@+id/nav_sell_player"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Sell Players">
+
+        </item>
+
+        <item
+            android:id="@+id/nav_selling_players"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Your Selling Players">
+
+        </item>
+
+        <item
+            android:id="@+id/nav_results"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Results of League">
+
+        </item>
+
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Log Out">
+
+        </item>
+
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/menu_share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/menu_send" />
+        </menu>
+    </item>
+
+</menu>

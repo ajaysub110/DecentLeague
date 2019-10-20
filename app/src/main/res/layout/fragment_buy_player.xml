@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".Fragments.SellPlayerFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ralewaymedium"
+            android:text="Buy Players"
+            android:textSize="25dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ralewayregular"
+            android:textColor="@color/colorTextBlue"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:text="You can buy players from marketplace here and do the transfer operations. Your blockchain balance will be used for all transactions"
+            android:textSize="16dp"></TextView>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Player Name"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="18dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:fontFamily="@font/ralewaymedium"></TextView>
+
+
+        <TextView
+            android:id="@+id/playerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name of the actual player"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="16dp"
+            android:textColor="@color/pink"
+            android:fontFamily="@font/ralewaymedium"></TextView>
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Player Price"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="18dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:fontFamily="@font/ralewaymedium"></TextView>
+
+
+        <EditText
+            android:editable="false"
+            android:id="@+id/playerPrice"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="60dp"
+            android:hint="Price of the actual player"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textSize="16dp"
+            android:background="@drawable/curved_edit_text"
+            android:textColor="@color/pink"
+            android:fontFamily="@font/ralewaymedium"></EditText>
+
+
+        <Button
+            android:id="@+id/buyBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/curved_pink_btn"
+            android:layout_gravity="center"
+            android:layout_marginTop="60dp"
+            android:text="BUY PLAYER"
+            android:textColor="@android:color/white"></Button>
+    </LinearLayout>
+
+</FrameLayout>

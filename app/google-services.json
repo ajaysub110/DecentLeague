@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "864758674412",
+    "firebase_url": "https://decent-league.firebaseio.com",
+    "project_id": "decent-league",
+    "storage_bucket": "decent-league.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:864758674412:android:11561df9aee3c9bcedc6c9",
+        "android_client_info": {
+          "package_name": "c.hackathon.decentralisedleague"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "864758674412-5tci1tri8qon3hv7i80sal1timcsfk4s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "c.hackathon.decentralisedleague",
+            "certificate_hash": "a9bde7d8422265b69b0d59f3fbad39086e008a7f"
+          }
+        },
+        {
+          "client_id": "864758674412-ldtdd67e7iu62l801p7vnlqo4de20ahm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAV-BEZwyYEyxxxX6EdQHMB_35328AYiIE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "864758674412-ldtdd67e7iu62l801p7vnlqo4de20ahm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
