@@ -1,0 +1,387 @@
+{
+  "ApplicationName": "LeaguePlayerListing",
+  "DisplayName": "League Player Listing",
+  "Description": "A simple League application to show multiple workflows.",
+  "ApplicationRoles": [
+    {
+      "Name": "LeagueMaintainer",
+      "Description": "Maintainer of the League."
+    },
+    {
+      "Name": "Team",
+      "Description": "Participating parties in the League."
+    }
+  ],
+  "Workflows": [
+    {
+      "Name": "LeaguePlayerListing",
+      "DisplayName": "League",
+      "Description": "Contains a list of parties who can create Player listings.",
+      "Initiators": [ "LeagueMaintainer" ],
+      "StartState":  "TeamProvisioned",
+      "Properties": [
+        {
+          "Name": "State",
+          "DisplayName": "State",
+          "Description": "Holds the state of the current scope",
+          "Type": {
+            "Name": "state"
+          }
+        },
+        {
+          "Name": "InstanceTeamA",
+          "DisplayName": "Team A",
+          "Description": "Team",
+          "Type": {
+            "Name": "Team"
+          }
+        },
+        {
+          "Name": "TeamABalance",
+          "DisplayName": "Team A Balance",
+          "Description": "Balance",
+          "Type": {
+            "Name": "int"
+          }
+        },
+        {
+          "Name": "InstanceTeamB",
+          "DisplayName": "Team B",
+          "Description": "Team",
+          "Type": {
+            "Name": "Team"
+          }
+        },
+        {
+          "Name": "TeamBBalance",
+          "DisplayName": "Team B Balance",
+          "Description": "Balance",
+          "Type": {
+            "Name": "int"
+          }
+        },
+        {
+          "Name": "InstanceLeagueMaintainer",
+          "DisplayName": "League Maintainer",
+          "Description": "League Maintainer",
+          "Type": {
+            "Name": "LeagueMaintainer"
+          }
+        },
+        {
+          "Name": "CurrentSeller",
+          "DisplayName": "Current Seller",
+          "Description": "Team",
+          "Type": {
+            "Name": "Team"
+          }
+        }
+      ],
+      "Constructor": {
+        "Parameters": [
+          {
+            "Name": "teamA",
+            "Description": "Team",
+            "DisplayName": "TeamA",
+            "Type": {
+              "Name": "Team"
+            }
+          },
+          {
+            "Name": "balanceA",
+            "Description": "Balance",
+            "DisplayName": "Balance",
+            "Type": {
+              "Name": "int"
+            }
+          },
+          {
+            "Name": "teamB",
+            "Description": "Team",
+            "DisplayName": "TeamB",
+            "Type": {
+              "Name": "Team"
+            }
+          },
+          {
+            "Name": "balanceB",
+            "Description": "Balance",
+            "DisplayName": "Balance",
+            "Type": {
+              "Name": "int"
+            }
+          }
+        ]
+      },
+      "Functions": [
+        {
+          "Name": "ListPlayer",
+          "DisplayName": "List Player to Sell",
+          "Description": "List Player",
+          "Parameters": [
+            {
+              "Name": "PlayerName",
+              "Description": "Player Name",
+              "DisplayName": "Player Name",
+              "Type": {
+                "Name": "string"
+              }
+            },
+            {
+              "Name": "PlayerPrice",
+              "Description": "Player Price",
+              "DisplayName": "Player Price",
+              "Type": {
+                "Name": "int"
+              }
+            }
+          ]
+        },
+        {
+          "Name": "UpdateBalance",
+          "DisplayName": "Update Balance",
+          "Description": "Update Balance",
+          "Parameters": [
+            {
+              "Name": "sellerTeam",
+              "Description": "Seller Team",
+              "DisplayName": "Seller Team",
+              "Type": {
+                "Name": "address"
+              }
+            },
+            {
+              "Name": "buyerTeam",
+              "Description": "Buyer Team",
+              "DisplayName": "Buyer Team",
+              "Type": {
+                "Name": "address"
+              }
+            },
+            {
+              "Name": "PlayerPrice",
+              "Description": "Player Price",
+              "DisplayName": "Player Price",
+              "Type": {
+                "Name": "int"
+              }
+            }
+          ]
+        }
+      ],
+      "States": [
+        {
+          "Name": "TeamProvisioned",
+          "DisplayName": "Team Provisioned",
+          "Description": "Team Provisioned",
+          "PercentComplete": 10,
+          "Style": "Success",
+          "Transitions": [
+            {
+              "AllowedRoles": [],
+              "AllowedInstanceRoles": ["InstanceTeamA", "InstanceTeamB"],
+              "Description": "List Player",
+              "Function": "ListPlayer",
+              "NextStates": [ "PlayerListed" ],
+              "DisplayName": "Player listed."
+            },
+            {
+              "AllowedRoles": [],
+              "AllowedInstanceRoles": [],
+              "Description": "Finalize Sale",
+              "Function": "UpdateBalance",
+              "NextStates": [ "CurrentSaleFinalized" ],
+              "DisplayName": "Current Sale Finalized."
+            }
+          ]
+        },
+        {
+          "Name": "PlayerListed",
+          "DisplayName": "Player Listed",
+          "Description": "Player listed",
+          "PercentComplete": 40,
+          "Style": "Success",
+          "Transitions": [
+            {
+              "AllowedRoles": [],
+              "AllowedInstanceRoles": ["InstanceTeamA", "InstanceTeamB"],
+              "Description": "List Player",
+              "Function": "ListPlayer",
+              "NextStates": [ "PlayerListed" ],
+              "DisplayName": "Player listed."
+            }
+          ]
+        },
+        {
+          "Name": "CurrentSaleFinalized",
+          "DisplayName": "Current Sale Finalized",
+          "Description": "Current Sale Finalized",
+          "PercentComplete": 60,
+          "Style": "Success",
+          "Transitions": [
+            {
+              "AllowedRoles": [],
+              "AllowedInstanceRoles": ["InstanceTeamA", "InstanceTeamB"],
+              "Description": "List Player",
+              "Function": "ListPlayer",
+              "NextStates": [ "PlayerListed" ],
+              "DisplayName": "Player listed."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "PlayerListing",
+      "DisplayName": "Player Listing",
+      "Description": "Seller lists a Player that can be bought by a team",
+      "Initiators": [],
+      "StartState":  "PlayerAvailable",
+      "Properties": [
+        {
+          "Name": "State",
+          "DisplayName": "State",
+          "Description": "Holds the state of the current scope",
+          "Type": {
+            "Name": "state"
+          }
+        },
+        {
+          "Name": "PlayerName",
+          "DisplayName": "Player name",
+          "Description": "Player name",
+          "Type": {
+            "Name": "string"
+          }
+        },
+        {
+          "Name": "PlayerPrice",
+          "DisplayName": "Player price",
+          "Description": "Player price",
+          "Type": {
+            "Name": "int"
+          }
+        },
+        {
+          "Name": "Seller",
+          "DisplayName": "Seller",
+          "Description": "Seller",
+          "Type": {
+            "Name": "Team"
+          }
+        },
+        {
+          "Name": "InstanceBuyer",
+          "DisplayName": "Buyer",
+          "Description": "Buyer",
+          "Type": {
+            "Name": "Team"
+          }
+        },
+        {
+          "Name": "TeamA",
+          "DisplayName": "Team A",
+          "Description": "Team A",
+          "Type": {
+            "Name": "Team"
+          }
+        },
+        {
+          "Name": "TeamB",
+          "DisplayName": "Team B",
+          "Description": "Team B",
+          "Type": {
+            "Name": "Team"
+          }
+        }
+      ],
+      "Constructor": {
+        "Parameters": [
+          {
+            "Name": "playerName",
+            "Description": "Player Name",
+            "DisplayName": "Player Name",
+            "Type": {
+              "Name": "string"
+            }
+          },
+          {
+            "Name": "playerPrice",
+            "Description": "Player Price",
+            "DisplayName": "Player Price",
+            "Type": {
+              "Name": "int"
+            }
+          },
+          {
+            "Name": "seller",
+            "Description": "Team",
+            "DisplayName": "Team",
+            "Type": {
+              "Name": "Team"
+            }
+          },
+          {
+            "Name": "parentContractAddress",
+            "Description": "Parent Address",
+            "DisplayName": "Parent Address",
+            "Type": {
+              "Name": "address"
+            }
+          },
+          {
+            "Name": "teamA",
+            "Description": "Team A",
+            "DisplayName": "Team A",
+            "Type": {
+              "Name": "Team"
+            }
+          },
+          {
+            "Name": "teamB",
+            "Description": "Team B",
+            "DisplayName": "Team B",
+            "Type": {
+              "Name": "Team"
+            }
+          }
+        ]
+      },
+      "Functions": [
+        {
+          "Name": "BuyPlayer",
+          "DisplayName": "Buy Player",
+          "Description": "Buy Player",
+          "Parameters": []
+        }
+      ],
+      "States": [
+        {
+          "Name": "PlayerAvailable",
+          "DisplayName": "Player Available",
+          "Description": "Player Available",
+          "PercentComplete": 40,
+          "Style": "Success",
+          "Transitions": [
+            {
+              "AllowedRoles": [],
+              "AllowedInstanceRoles": ["TeamA", "TeamB"],
+              "Description": "Buy Player",
+              "Function": "BuyPlayer",
+              "NextStates": [ "PlayerSold" ],
+              "DisplayName": "Player sold"
+            }
+          ]
+        },
+        {
+          "Name": "PlayerSold",
+          "DisplayName": "Player Sold",
+          "Description": "Player Sold",
+          "PercentComplete": 100,
+          "Style": "Success",
+          "Transitions": []
+        }
+      ]
+    }
+  ]
+}
