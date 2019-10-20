@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,6 +41,7 @@ public class MyTeamFragment extends Fragment {
     private AllPlayersAdapter playersRecyclerAdapter;
     private DatabaseReference mdatabase;
     private ProgressDialog pd;
+    private TextView balance;
 
     public MyTeamFragment() {
         // Required empty public constructor
@@ -69,6 +71,8 @@ public class MyTeamFragment extends Fragment {
 
 
 
+        balance = v.findViewById(R.id.balanceRemaining);
+
         RecyclerView.LayoutManager newsLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
         GridLayoutManager mGridLayoutManager = new GridLayoutManager(this.getActivity(), 2);
         AllPlayersRecycler.setLayoutManager(mGridLayoutManager);
@@ -94,7 +98,20 @@ public class MyTeamFragment extends Fragment {
         AllPlayersRecycler.setAdapter(playersRecyclerAdapter);
 
 
-        mdatabase.child("players").addValueEventListener(new ValueEventListener() {
+        mdatabase.child("balance").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                balance.setText(dataSnapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        mdatabase.child("players").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 pd.dismiss();

@@ -102,7 +102,7 @@ public class BuyPlayerFragment extends Fragment {
 
         allPlayersDatabase = FirebaseDatabase.getInstance().getReference().child("allPlayers");
 
-        mdatabase.addValueEventListener(new ValueEventListener() {
+        mdatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 buyerBalance = Integer.parseInt(dataSnapshot.child("balance").getValue().toString());
@@ -115,7 +115,7 @@ public class BuyPlayerFragment extends Fragment {
             }
         });
 
-        mdatabase1.addValueEventListener(new ValueEventListener() {
+        mdatabase1.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 sellerBalance = Integer.parseInt(dataSnapshot.child("balance").getValue().toString());
@@ -146,7 +146,7 @@ public class BuyPlayerFragment extends Fragment {
             public void onClick(View view) {
                 if(origin.equals("1")){
                     BuyPlayerModel body = new BuyPlayerModel();
-                    body.setWorkflowFunctionID(30);
+                    body.setWorkflowFunctionID(35);
                     body.setWorkflowActionParameters(list);
 
 

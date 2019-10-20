@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,7 +41,7 @@ public class TeamSellingPlayersFragment extends Fragment {
     private AllPlayersAdapter playersRecyclerAdapter;
     private DatabaseReference mdatabase;
     private ProgressDialog pd;
-
+    private TextView balance;
 
     public TeamSellingPlayersFragment() {
         // Required empty public constructor
@@ -68,7 +69,7 @@ public class TeamSellingPlayersFragment extends Fragment {
         pd.setMessage("loading");
         pd.setCancelable(false);
 
-
+        balance = v.findViewById(R.id.balanceRemaining);
 
         RecyclerView.LayoutManager newsLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
         GridLayoutManager mGridLayoutManager = new GridLayoutManager(this.getActivity(), 2);
@@ -95,7 +96,19 @@ public class TeamSellingPlayersFragment extends Fragment {
         AllPlayersRecycler.setAdapter(playersRecyclerAdapter);
 
 
-        mdatabase.child("sellingPlayers").addValueEventListener(new ValueEventListener() {
+        mdatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                balance.setText(dataSnapshot.child("balance").getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mdatabase.child("sellingPlayers").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 pd.dismiss();

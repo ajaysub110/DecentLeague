@@ -15,8 +15,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
@@ -48,6 +51,8 @@ public class SellPlayerFragment extends Fragment {
     private SessionManager sessionManager;
     private String buyerTeam;
     private String sellerTeam;
+    private TextView balance;
+    private DatabaseReference mdatabase;
 
     public SellPlayerFragment() {
         // Required empty public constructor
@@ -98,7 +103,7 @@ public class SellPlayerFragment extends Fragment {
                 price = priceEdtTxt.getText().toString();
                 if(!TextUtils.isEmpty(price)){
                     final SellPlayerBodyModel model = new SellPlayerBodyModel();
-                    model.setWorkflowFunctionId(26);
+                    model.setWorkflowFunctionId(32);
                     SellPlayerBodyModel.WorkflowActionParameter parameter1 = new SellPlayerBodyModel.WorkflowActionParameter();
                     parameter1.setName("PlayerName");
                     parameter1.setValue(name);
@@ -109,7 +114,7 @@ public class SellPlayerFragment extends Fragment {
                     list.add(parameter2);
                     model.setWorkflowActionParameters(list);
 
-                    Call call = AzureApiClient.getClient().sellPlayer("11",model);
+                    Call call = AzureApiClient.getClient().sellPlayer("28",model);
                     call.enqueue(new Callback() {
                         @Override
                         public void onResponse(Call call, Response response) {

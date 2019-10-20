@@ -2,19 +2,24 @@ package c.hackathon.decentralisedleague.Fragments;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +49,11 @@ public class ListAllPlayers extends Fragment {
     private RecyclerView AllPlayersRecycler;
     private List<AllPlayersModel> playersList = new ArrayList<>();
     private AllPlayersAdapter playersRecyclerAdapter;
-    private DatabaseReference mdatabase;
+    private DatabaseReference mdatabase,userDatabase;
     private ProgressDialog pd;
+    private TextView balance;
+    private String buyerTeam;
+    private String sellerTeam;
 
     public ListAllPlayers() {
         // Required empty public constructor
@@ -65,10 +73,34 @@ public class ListAllPlayers extends Fragment {
         GridLayoutManager mGridLayoutManager = new GridLayoutManager(this.getActivity(), 2);
         AllPlayersRecycler.setLayoutManager(mGridLayoutManager);
 
+        balance = v.findViewById(R.id.balanceRemaining);
 
         pd = new ProgressDialog(getActivity());
         pd.setMessage("loading");
         pd.setCancelable(false);
+
+        if(sessionManager.getEMAIL().equals("nipun.agarwal12@hotmail.com")){
+            buyerTeam = "teamA";
+            sellerTeam = "teamB";
+        }else{
+            buyerTeam = "teamB";
+            sellerTeam = "teamA";
+        }
+
+        userDatabase = FirebaseDatabase.getInstance().getReference().child(buyerTeam);
+
+        userDatabase.child("balance").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                balance.setText(dataSnapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
         mdatabase = FirebaseDatabase.getInstance().getReference().child("allPlayers");
 
@@ -86,30 +118,8 @@ public class ListAllPlayers extends Fragment {
 //        playersList.add(player);
 //        playersList.add(player);
 
-        mdatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                pd.dismiss();
-                playersList.clear();
-                for(DataSnapshot AllNews : dataSnapshot.getChildren()){
-                    AllPlayersModel player = new AllPlayersModel();
-                    player.setName(AllNews.child("name").getValue().toString());
-                    player.setParty(AllNews.child("position").getValue().toString());
-                    player.setAge(AllNews.child("form").getValue().toString());
-                    player.setAssets(AllNews.child("price").getValue().toString());
-                    player.setOrigin("0");
-                    playersList.add(player);
-                }
-                playersRecyclerAdapter.notifyDataSetChanged();
 
-                CallAPi();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        CallAPi();
 
 
         playersRecyclerAdapter = new AllPlayersAdapter(playersList,this.getActivity(),"0");
@@ -120,14 +130,16 @@ public class ListAllPlayers extends Fragment {
 
 
 
+//        callFirebase();
+
 
 
         return v;
     }
 
     private void CallAPi() {
-
-        Call<GetAllMarketPlacePlayers> call = AzureApiClient.getClient().getAllMarketPlacePlayers("11");
+        playersList.clear();
+        Call<GetAllMarketPlacePlayers> call = AzureApiClient.getClient().getAllMarketPlacePlayers("13");
         call.enqueue(new Callback<GetAllMarketPlacePlayers>() {
             @Override
             public void onResponse(Call<GetAllMarketPlacePlayers> call, Response<GetAllMarketPlacePlayers> response) {
@@ -143,15 +155,42 @@ public class ListAllPlayers extends Fragment {
                                 allCandidates.setOrigin("1");
                                 allCandidates.setId(Integer.toString(response.body().getContracts().get(i).getId()));
                                 playersList.add(allCandidates);
+                                callFirebase();
                             }
                         }
                         playersRecyclerAdapter.notifyDataSetChanged();
                     }
+                }else{
+                    Log.e("error", Integer.toString(response.code()));
                 }
             }
 
             @Override
             public void onFailure(Call<GetAllMarketPlacePlayers> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void callFirebase() {
+        mdatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                pd.dismiss();
+                for(DataSnapshot AllNews : dataSnapshot.getChildren()){
+                    AllPlayersModel player = new AllPlayersModel();
+                    player.setName(AllNews.child("name").getValue().toString());
+                    player.setParty(AllNews.child("position").getValue().toString());
+                    player.setAge(AllNews.child("form").getValue().toString());
+                    player.setAssets(AllNews.child("price").getValue().toString());
+                    player.setOrigin("0");
+                    playersList.add(player);
+                }
+                playersRecyclerAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         });
